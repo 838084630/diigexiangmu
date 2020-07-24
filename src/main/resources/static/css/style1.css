@@ -1,0 +1,127 @@
+.title {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 32px;
+	color: #FFFFFF;
+}
+body {
+	background-color: #000000;
+}
+img {
+	float: right;
+	width: 60%;
+}
+.background-table {
+	color: #131B2F;
+}
+.bottomText {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 26px;
+	color: #00FFFF;
+	float: left;
+}
+.tableText {
+	color: #FFFFFF!important;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	text-align: right;
+	background-color: #131B2F!important;
+}
+.bottomSubmit {
+	color: #2E5354;
+	border: 0;
+	float: right;
+	font-size: 24px;
+	font-family: MicrosoftYaHei-Bold;
+	padding: 0;
+}
+#check,button{
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	background-color: #8EE2E3;
+	width: 150px;
+	border:0;
+}
+#times {
+	border: 3px solid #8EED9E;
+}
+#sum {
+	border: 3px solid #8EED9E;
+}
+.input2 {
+	color: #E3D58E;
+	background-color: #131B2F;
+	border: 3px solid #8EED9E;
+	margin: 0 0 0 50px;
+	width: 75px;
+	text-align:center;
+}
+.output {
+	color: #E3D58E;
+	background-color: #131B2F;
+	border: 2px solid #8EED9E;
+	margin: 0 0 0 50px;
+	width: 180px;
+	text-align:right;
+}
+.tittle {
+	font-family: AppleSymbols;
+	font-size: 32px;
+	color: #FFFFFF;
+}
+.tittleValue {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 32px;
+	color: #FFFFFF;
+}
+.times {
+	font-family: ArialMT;
+	font-size: 20px;
+	color: #FFFFFF;
+}
+.count {
+	font-family: ArialMT;
+	font-size: 20px;
+	color: #FFFFFF;
+}
+table, td, th {
+	border: 3px solid #8EED9E;
+	text-align: center;
+}
+.right {
+	text-align: right;
+}
+td {
+	color: #FFFFFF;
+	height: 50px;
+	font-family: MicrosoftYaHei;
+	font-size: 24px;
+	text-align: left;
+}
+th {
+	height: 50px;
+	color: #FFFFFF;
+	font-family: MicrosoftYaHei;
+	font-size: 24px;
+	text-align: center;
+}
+.message{
+ font-size:24px;
+}
+input::-ms-clear {
+	width: 0;
+	height: 0;
+}
+.error {
+	color: #FFFFFF;
+	font-family: MicrosoftYaHei;
+	font-size: 32px;
+	text-align: center;
+	margin: auto;
+    position: absolute;
+    top: 250px;
+    left: 20%;
+    right: 20%;
+    bottom: 0;
+}

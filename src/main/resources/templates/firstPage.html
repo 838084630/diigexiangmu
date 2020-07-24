@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>パソコン注文業務</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="../static/css/style1.css" rel="stylesheet" media="screen" />
+
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+<!--    <script src="../static/js/xx.js"></script>-->
+
+</head>
+<body>
+
+<div class="container">
+<!--    <form method="post" action="/TPNUA2">-->
+        <div align="right" class="times"><span>日付</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="times"></span></div><br />
+        <div><span class="tittle">＜＜</span><span class="tittleValue">パソコン注文業務</span><span class="tittle">＞＞</span><img src="../static/images/topLine.jpg" /></div>
+        <div><br />
+            <table class="table1" width="100%">
+                <tr>
+                    <th width="10%">番号</th>
+                    <th width="45%">店名</th>
+                    <th width="45%">氏名</th>
+                </tr>
+                <tr th:each="oneData:${homeData}">
+                    <td th:text="${oneData.id}"></td>
+                    <td th:text="${oneData.storeName}"></td>
+                    <td th:text="${oneData.storeManager}"></td>
+                </tr>
+            </table>
+            <div><br /><br />
+                <div class="bottomText">処理される方の番号を入力してください&nbsp;
+                    <input type="text" class="input2" name="number" id="number" autocomplete="off" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" />
+<!--                    autocomplete="off" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}"-->
+                </div><div class="bottomSubmit"><button id="check">送信</button></div>
+            </div>
+            <input type="hidden" name="TRNS_NAME" value="0000001" />
+            <input type="hidden" name="IN_TRNM" value="TRNUA1" />
+            <input type="hidden" name="IN_CONTINUE" value="0" />
+            <input type="hidden" name="TRNS_STATUS" value="00" />
+        </div><br /><br /><br /><br />
+        <div class="message">
+            <font color="red">
+                <span></span>
+            </font>
+        </div>
+<!--    </form>-->
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function()
+    {
+        document.getElementById("number").focus();
+    }
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var mm = date.getMonth() + 1;
+    if(9 > mm){
+        mm = "0" + mm;
+    }
+    var dd = date.getDate();
+    if(10 > dd){
+      dd = "0" + dd;
+    }
+    var compare = yyyy+mm+dd; //string
+    var reiwa = '20190501'; //2019年5月1日より令和
+    var mmdd, yy;
+      if (reiwa >compare){
+          yy = yyyy-1988;
+      } else {
+          yy = yyyy-2018;
+      }
+      if (10 > yy){
+          yy = "0"+yy;
+      }
+      mmdd = "0" + mm+"月"+dd+"日";
+      if (reiwa >compare){
+          document.getElementById("times").innerHTML =  yy+"."+mm+"."+dd; // 平成24年05月09日
+      } else {
+          document.getElementById("times").innerHTML =  yy+"."+mm+"."+dd; // 令和02年05月09日
+      }
+<!--*****************-->
+
+<!--//   跳转到第二页面-->
+  $('#check').click(function(){
+   var number = $('#number').val();
+
+        $.ajax({
+        url:"/computerPage",
+        data:{
+        number:number
+        },
+        success: function(data){
+
+        window.location.href="/computerPage?id="+number;
+
+        }
+
+        })
+
+  })
+<!--*****************-->
+  </script>
