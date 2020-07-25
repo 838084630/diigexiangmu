@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class Product {
-    private int id;
+    private Integer id;
     private String storeName;
     private String productVersion;
     private double productPrice;
-    private int productInNum;
-    private int productOutNum;
+    private Integer productStock;
+    private Integer productOut;
 
 }

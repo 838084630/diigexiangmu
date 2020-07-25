@@ -2,21 +2,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-    <title>メモリ注文</title>
+    <title>パソコン注文</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <link href="../static/css/style1.css" rel="stylesheet" media="screen" />
     <script src="../static/js/jquery-3.4.1.min.js"></script>
-<!--    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" />-->
-<!--    <link href="../static/css/style1.css" rel="stylesheet" media="screen" />-->
 
 </head>
-<!--<script src="/js/jquery-3.4.1.min.js"></script>-->
+
 <body>
 
 <div class="container">
-    <form name="form" method="post" action="/TPNUA2">
+    <!--<form name="form" method="post" action="/TPNUA2">-->
         <div align="right" class="times"><span>日付</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="times"></span></div><br />
         <div><span class="tittle">＜＜</span><span class="tittleValue">パソコン注文</span><span class="tittle">＞＞</span>
             <img src="../static/images/topLine.jpg" /></div><br />
@@ -29,12 +27,12 @@
                     <th width="15%">在庫数</th>
                     <th width="15%">注文数</th>
                 </tr>
-                <tr th:each="oneComputerData:${computerData}">
-                    <td th:text="${oneComputerData.storeName}"></td>
-                    <td th:text="${oneComputerData.productVersion}"></td>
-                    <td th:text="${oneComputerData.productPrice}"></td>
-                    <td th:text="${oneComputerData.productInNum}"></td>
-                    <td th:text="${oneComputerData.productOutNum}"></td>
+                <tr th:each="computer:${computers}">
+                    <td th:text="${computer.storeName}"></td>
+                    <td th:text="${computer.productVersion}"></td>
+                    <td th:text="${computer.productPrice}"></td>
+                    <td th:text="${computer.productStock}"></td>
+                    <td><input class="column_computer_id" type="text" placeholder='0' style='color:#FF0000' th:id="${computer.id}"></td>
                 </tr>
 <!--                <tr>-->
 <!--                    <td><input type="text" autocomplete="off" class="tableText" id="number" oninput="value=value.replace(/[^\d]/g,'0').substr(0,1)" maxlength="1" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" name="IN_STR[0].IN_ORDER" value="0" /></td>-->
@@ -50,12 +48,12 @@
             <input type="hidden" name="IN_CONTINUE" value="1" />
             <input type="hidden" name="TRNS_STATUS" value="01" />
         </div>
-    </form>
+    <!--</form>-->
 </div>
 <script type="text/javascript">
     window.onload = function()
     {
-<!--        document.getElementById("number").select();-->
+       document.getElementById("number").select();
     }
     var trLength = $('tr').length-1;
     for(var i=0;trLength>i;i++){
@@ -97,44 +95,41 @@
 
 
 
-<!--var cc = $.getUrlParam("id")-->
-<!--    console.log(cc)-->
-<!--var cc = this.context.getParam("id")-->
-<!-- console.log(cc)-->
-
 var url = location.search;
 arr = url.split("=");
-var id = arr[1]
-console.log(id)
+var id = arr[1];
 
-<!--$.ajax({-->
-<!--        url:"/computerPage",-->
-<!--        data:{-->
-<!--        number:id-->
-<!--        },-->
-<!--        success: function(data){-->
-<!--            console.log(data)-->
-
-<!--            for(i=0;i<data.length;i++){-->
-
-<!--var $tr = $("<tr>"+-->
-<!--"<td>"+data[i].storeName+"</td>"+-->
-<!--"<td>"+data[i].productVersion+"</td>"+-->
-<!--"<td>"+data[i].productPrice+"</td>"+-->
-<!--"<td>"+data[i].productInNum+"</td>"+-->
-<!--"<td>"+"<input type='text' placeholder='0' style='color:#FF0000'>"+"</td>"+-->
-<!--"</tr>");-->
-<!--$('.table1').append($tr);-->
-<!--               }-->
-<!--        }-->
-
-<!--        })-->
 
 <!--跳转到第三个页面-->
  $('#check').click(function(){
-   var number = $('#number').val();
+//获取输入框中的值
+//      var x = document.getElementsByClassName("column_computer_id").valueOf()
+//      alert(x)
+//      alert($(".column_computer_id").length);
+     var number = $('#number').val();
+
    if(number==1){
-        window.location.href="/memoryOrder?id="+id;
+
+     $(".column_computer_id").each(function() {
+         // alert("输入框的值"+$(this).val());
+          var inputValue = $(this).val();
+         var columnComputerId = $(this).attr("id");
+         if (inputValue!==0) {
+             $.ajax({
+                 url:"/changeOrderNum",
+                 data:{
+                     productId:columnComputerId,
+                     orderNum:inputValue
+                 },
+                 success:function () {
+
+                 }
+             })
+         }
+
+     });
+
+        window.location.href="/memoryPage?number="+id;
    }else{
    window.location.href="/";
    }

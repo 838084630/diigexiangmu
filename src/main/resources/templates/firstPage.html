@@ -84,22 +84,22 @@
       }
 <!--*****************-->
 
-<!--//   跳转到第二页面-->
+<!-- 跳转到第二页面-->
   $('#check').click(function(){
    var number = $('#number').val();
-
-        $.ajax({
-        url:"/computerPage",
-        data:{
-        number:number
-        },
-        success: function(data){
-
-        window.location.href="/computerPage?id="+number;
-
-        }
-
-        })
+      window.location.href="/computerPage?number="+number;
+        // $.ajax({
+        // url:"/computerPage",
+        // data:{
+        // number:number
+        // },
+        // success: function(data){
+        //
+        //
+        //
+        // }
+        //
+        // })
 
   })
 <!--*****************-->

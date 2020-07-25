@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <title>メモリ注文</title>
 
@@ -16,7 +16,7 @@
 <body>
 
 <div class="container">
-    <form name="form" method="post" action="/TPNUA2">
+    <!--<form name="form" method="post" action="/TPNUA2">-->
         <div align="right" class="times"><span>日付</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="times"></span></div><br />
         <div><span class="tittle">＜＜</span><span class="tittleValue">メモリー注文</span><span class="tittle">＞＞</span>
             <img src="../static/images/topLine.jpg" /></div><br />
@@ -29,9 +29,13 @@
                     <th width="15%">在庫数</th>
                     <th width="15%">注文数</th>
                 </tr>
-                <!--                <tr>-->
-                <!--                    <td><input type="text" autocomplete="off" class="tableText" id="number" oninput="value=value.replace(/[^\d]/g,'0').substr(0,1)" maxlength="1" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" name="IN_STR[0].IN_ORDER" value="0" /></td>-->
-                <!--                </tr>-->
+                <tr th:each="memory:${memories}">
+                    <td th:text="${memory.storeName}"></td>
+                    <td th:text="${memory.productVersion}"></td>
+                    <td th:text="${memory.productPrice}"></td>
+                    <td th:text="${memory.productStock}"></td>
+                    <td><input  type="text" placeholder='0' style='color:#FF0000' id="column_computer_id" th:id="${memory.id} "></td>
+                </tr>
 
             </table>
             <br /><br />
@@ -43,7 +47,7 @@
             <input type="hidden" name="IN_CONTINUE" value="1" />
             <input type="hidden" name="TRNS_STATUS" value="01" />
         </div>
-    </form>
+    <!--</form>-->
 </div>
 <script type="text/javascript">
     window.onload = function()
@@ -89,40 +93,10 @@
 <!--**********************-->
 
 
-
-<!--var cc = $.getUrlParam("id")-->
-<!--    console.log(cc)-->
-<!--var cc = this.context.getParam("id")-->
-<!-- console.log(cc)-->
-
 var url = location.search;
 arr = url.split("=");
 var id = arr[1]
 console.log(id)
-
-$.ajax({
-        url:"/memoryPage",
-        data:{
-        number:id
-        },
-        success: function(data){
-            console.log(data)
-
-            for(i=0;i<data.length;i++){
-
-var $tr = $("<tr>"+
-"<td>"+data[i].storeName+"</td>"+
-"<td>"+data[i].productVersion+"</td>"+
-"<td>"+data[i].productPrice+"</td>"+
-"<td>"+data[i].productInNum+"</td>"+
-"<td>"+"<input type='text' placeholder='0' style='color:#FF0000'>"+"</td>"+
-"</tr>");
-//var $table = $(".table1");
-$('.table1').append($tr);
-               }
-        }
-
-        })
 
 
 

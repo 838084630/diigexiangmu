@@ -12,6 +12,7 @@ public class ComputerPageService {
     private ComputerPageDao computerPageDao;
     public List<Product> queryAllByStoreId(String number) {
 //        System.out.println("xxxxxxxxxxx"+number);
-        return computerPageDao.queryAllByStoreId(number);
+       List<Product> computers = computerPageDao.queryAllByStoreId(number);
+        return computers;
     }
 }

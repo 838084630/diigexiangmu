@@ -4,6 +4,7 @@ import com.example.demo.pojo.Product;
 import com.example.demo.service.MemoryPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,14 +15,11 @@ public class MemoryPageController {
     @Autowired
     private MemoryPageService memoryPageService;
 
-    @RequestMapping("/memoryOrder")
-    public String memoryOrder(){
-        return "memoryOrder";
-    }
     @RequestMapping("/memoryPage")
-    @ResponseBody
-    public List<Product> queryAllByStoreId(String number){
-        System.out.println("XXXXXXXXXX"+number);
-            return memoryPageService.queryAllByStoreId(number);
+    public String queryAllByStoreId(String number, Model model){
+            List<Product> memories =  memoryPageService.queryAllByStoreId(number);
+
+            model.addAttribute("memories",memories);
+            return "memoryOrder";
     }
 }
