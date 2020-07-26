@@ -34,12 +34,12 @@
                     <td th:text="${memory.productVersion}"></td>
                     <td th:text="${memory.productPrice}"></td>
                     <td th:text="${memory.productStock}"></td>
-                    <td><input  type="text" placeholder='0' style='color:#FF0000' id="column_computer_id" th:id="${memory.id} "></td>
+                    <td><input class="column_memory_id" type="text" placeholder='0' style='color:#FF0000'  th:id="${memory.id} "></td>
                 </tr>
 
             </table>
             <br /><br />
-            <div><div class="bottomText">次処理⇒　１：注文確定 ２：注文中断<input class="input2" type="text" value="1" autocomplete="off" id="choose3" name="number" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" /></div><div class="bottomSubmit"><input type="button" id="check" value="送信" /></div></div>
+            <div><div class="bottomText">次処理⇒　１：注文確定 ２：注文中断<input class="input2" type="text" value="1" autocomplete="off" id="number" name="number" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" /></div><div class="bottomSubmit"><input type="button" id="check" value="送信" /></div></div>
             <input type="button" value="Cancel" onclick="document.form.IN_CONTINUE.value='0';document.form.submit();" style="display:none" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" />
             <input type="submit" value="Next" style="display:none" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" />
             <input type="hidden" name="TRNS_NAME" value="0000001" />
@@ -99,7 +99,57 @@ var id = arr[1]
 console.log(id)
 
 
+    // 跳转到订单个页面
+    $('#check').click(function(){
+//获取输入框中的值
+//      var x = document.getElementsByClassName("column_computer_id").valueOf()
+//      alert(x)
+//      alert($(".column_computer_id").length);
+        var number = $('#number').val();
 
+        if(number==1){
+            //重建一个空的数组，放computer的订单信息
+            // var computerList = [];
+
+            $(".column_memory_id").each(function() {
+
+                var inputValue = $(this).val();
+                var columnMemoryId = $(this).attr("id");
+
+
+                //新建对象存某个computer的信息
+                // var a = {};
+                // a.id = inputValue;
+                // a.productOut = columnComputerId;
+                // computerList.push(a);
+
+                if (inputValue!==0 && inputValue!==null && inputValue!=="") {
+                    // alert("该行id："+columnMemoryId+"输入框的值："+inputValue);
+                    $.ajax({
+                        url:"/changeOrderNum",
+                        data:
+                            {
+                                productId:columnMemoryId,
+                                orderNum:inputValue
+                            },
+                        // "list="+computerList,
+                        //     JSON.stringify(computerList),
+                        // dataType : "json",
+                        async : false,
+                        success:function () {
+
+                        }
+                    })
+                }
+
+            });
+
+             window.location.href="/cart";
+        }else{
+            window.location.href="/";
+        }
+
+    })
 <!--**********************-->
 
   </script>

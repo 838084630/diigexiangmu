@@ -109,18 +109,34 @@ var id = arr[1];
      var number = $('#number').val();
 
    if(number==1){
+       //重建一个空的数组，放computer的订单信息
+       // var computerList = [];
 
      $(".column_computer_id").each(function() {
-         // alert("输入框的值"+$(this).val());
+
           var inputValue = $(this).val();
          var columnComputerId = $(this).attr("id");
-         if (inputValue!==0) {
+
+
+         //新建对象存某个computer的信息
+         // var a = {};
+         // a.id = inputValue;
+         // a.productOut = columnComputerId;
+         // computerList.push(a);
+
+         if (inputValue!==0 && inputValue!==null && inputValue!=="") {
+             // alert("该行id："+columnComputerId+"输入框的值："+inputValue);
              $.ajax({
                  url:"/changeOrderNum",
-                 data:{
-                     productId:columnComputerId,
-                     orderNum:inputValue
-                 },
+                 data:
+                     {
+                         productId:columnComputerId,
+                         orderNum:inputValue
+                     },
+                     // "list="+computerList,
+                 //     JSON.stringify(computerList),
+                 // dataType : "json",
+                 async : false,
                  success:function () {
 
                  }
@@ -129,7 +145,7 @@ var id = arr[1];
 
      });
 
-        window.location.href="/memoryPage?number="+id;
+         window.location.href="/memoryPage?number="+id;
    }else{
    window.location.href="/";
    }
