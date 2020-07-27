@@ -4,9 +4,9 @@
 <head lang="en">
     <title>メモリ注文</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    <link href="../static/css/style1.css" rel="stylesheet" media="screen" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link href="../static/css/style1.css" rel="stylesheet" media="screen"/>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
     <!--    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" />-->
     <!--    <link href="../static/css/style1.css" rel="stylesheet" media="screen" />-->
@@ -17,101 +17,110 @@
 
 <div class="container">
     <!--<form name="form" method="post" action="/TPNUA2">-->
-        <div align="right" class="times"><span>日付</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="times"></span></div><br />
-        <div><span class="tittle">＜＜</span><span class="tittleValue">メモリー注文</span><span class="tittle">＞＞</span>
-            <img src="../static/images/topLine.jpg" /></div><br />
-        <div>
-            <table class="table1" width="100%">
-                <tr>
-                    <th width="25%">営業店名</th>
-                    <th width="30%">製品名</th>
-                    <th width="15%">単価</th>
-                    <th width="15%">在庫数</th>
-                    <th width="15%">注文数</th>
-                </tr>
-                <tr th:each="memory:${memories}">
-                    <td th:text="${memory.storeName}"></td>
-                    <td th:text="${memory.productVersion}"></td>
-                    <td th:text="${memory.productPrice}"></td>
-                    <td th:text="${memory.productStock}"></td>
-                    <td><input class="column_memory_id" type="text" placeholder='0' style='color:#FF0000'  th:id="${memory.id} "></td>
-                </tr>
+    <div align="right" class="times"><span>日付</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="times"></span></div>
+    <br/>
+    <div><span class="tittle">＜＜</span><span class="tittleValue">メモリー注文</span><span class="tittle">＞＞</span>
+        <img src="../static/images/topLine.jpg"/></div>
+    <br/>
+    <div>
+        <table class="table1" width="100%">
+            <tr>
+                <th width="25%">営業店名</th>
+                <th width="30%">製品名</th>
+                <th width="15%">単価</th>
+                <th width="15%">在庫数</th>
+                <th width="15%">注文数</th>
+            </tr>
+            <tr th:each="memory:${memories}">
+                <td th:text="${memory.storeName}"></td>
+                <td th:text="${memory.productVersion}"></td>
+                <td th:text="${memory.productPrice}"></td>
+                <td th:text="${memory.productStock}"></td>
+                <td><input class="column_memory_id" placeholder="0" type="text" style='color:#FF0000' th:id="${memory.id}"></td>
+            </tr>
 
-            </table>
-            <br /><br />
-            <div><div class="bottomText">次処理⇒　１：注文確定 ２：注文中断<input class="input2" type="text" value="1" autocomplete="off" id="number" name="number" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" /></div><div class="bottomSubmit"><input type="button" id="check" value="送信" /></div></div>
-            <input type="button" value="Cancel" onclick="document.form.IN_CONTINUE.value='0';document.form.submit();" style="display:none" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" />
-            <input type="submit" value="Next" style="display:none" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}" />
-            <input type="hidden" name="TRNS_NAME" value="0000001" />
-            <input type="hidden" name="IN_TRNM" value="TRNUA3" />
-            <input type="hidden" name="IN_CONTINUE" value="1" />
-            <input type="hidden" name="TRNS_STATUS" value="01" />
+        </table>
+        <br/><br/>
+        <div>
+            <div class="bottomText">次処理⇒　１：注文確定 ２：注文中断<input class="input2" type="text" value="1" autocomplete="off"
+                                                             id="number" name="number"
+                                                             onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}"/>
+            </div>
+            <div class="bottomSubmit"><input type="button" id="check" value="送信"/></div>
         </div>
+        <input type="button" value="Cancel" onclick="document.form.IN_CONTINUE.value='0';document.form.submit();"
+               style="display:none" onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}"/>
+        <input type="submit" value="Next" style="display:none"
+               onkeydown="if(event.keyCode==13){event.keyCode=0;event.returnValue=false;}"/>
+        <input type="hidden" name="TRNS_NAME" value="0000001"/>
+        <input type="hidden" name="IN_TRNM" value="TRNUA3"/>
+        <input type="hidden" name="IN_CONTINUE" value="1"/>
+        <input type="hidden" name="TRNS_STATUS" value="01"/>
+    </div>
     <!--</form>-->
 </div>
 <script type="text/javascript">
-    window.onload = function()
-    {
-<!--        document.getElementById("number").select();-->
+    window.onload = function () {
+        <!--        document.getElementById("number").select();-->
     }
-    var trLength = $('tr').length-1;
-    for(var i=0;trLength>i;i++){
-      var stock = $('table tr').find('td:eq(3)')[i].innerHTML;
-      if(stock.replace(/\s/g,'')!=""){
-        while(3>stock.replace(/\s/g,'').length){
-          stock="0"+stock.replace(/\s/g,'');
-           }
+    var trLength = $('tr').length - 1;
+    for (var i = 0; trLength > i; i++) {
+        var stock = $('table tr').find('td:eq(3)')[i].innerHTML;
+        if (stock.replace(/\s/g, '') != "") {
+            while (3 > stock.replace(/\s/g, '').length) {
+                stock = "0" + stock.replace(/\s/g, '');
+            }
         }
-      $('table tr').find('td:eq(3)')[i].innerHTML = stock;
+        $('table tr').find('td:eq(3)')[i].innerHTML = stock;
     }
     var date = new Date();
     var yyyy = date.getFullYear();
     var mm = date.getMonth() + 1;
     var dd = date.getDate();
-    var yy = yyyy-2018;
-    if(10 > mm){
-      mm = "0" + mm;
+    var yy = yyyy - 2018;
+    if (10 > mm) {
+        mm = "0" + mm;
     }
-    if(10 > dd){
-      dd = "0" + dd;
+    if (10 > dd) {
+        dd = "0" + dd;
     }
-    if(10 > yy){
-      yy = "0" + yy;
+    if (10 > yy) {
+        yy = "0" + yy;
     }
-      document.getElementById("times").innerHTML =  yy+"."+mm+"."+dd;
-<!--      $("#check").click(function(){-->
-<!--          if($("#choose3").val() == "2"){-->
-<!--            $("input[value='Cancel']").click();-->
-<!--          }else if($("#choose3").val() == "1"){-->
-<!--            $("input[type='submit']").click();-->
-<!--          }else{-->
-<!--            $("#choose3").val("!");-->
-<!--          }-->
-<!--        });-->
+    document.getElementById("times").innerHTML = yy + "." + mm + "." + dd;
+    <!--      $("#check").click(function(){-->
+    <!--          if($("#choose3").val() == "2"){-->
+    <!--            $("input[value='Cancel']").click();-->
+    <!--          }else if($("#choose3").val() == "1"){-->
+    <!--            $("input[type='submit']").click();-->
+    <!--          }else{-->
+    <!--            $("#choose3").val("!");-->
+    <!--          }-->
+    <!--        });-->
 
 
-<!--**********************-->
+    <!--**********************-->
 
 
-var url = location.search;
-arr = url.split("=");
-var id = arr[1]
-console.log(id)
+    var url = location.search;
+    arr = url.split("=");
+    var id = arr[1]
+    console.log(id)
 
 
     // 跳转到订单个页面
-    $('#check').click(function(){
+    $('#check').click(function () {
 //获取输入框中的值
 //      var x = document.getElementsByClassName("column_computer_id").valueOf()
 //      alert(x)
 //      alert($(".column_computer_id").length);
         var number = $('#number').val();
 
-        if(number==1){
+        if (number == 1) {
             //重建一个空的数组，放computer的订单信息
             // var computerList = [];
 
-            $(".column_memory_id").each(function() {
+            $(".column_memory_id").each(function () {
 
                 var inputValue = $(this).val();
                 var columnMemoryId = $(this).attr("id");
@@ -123,35 +132,35 @@ console.log(id)
                 // a.productOut = columnComputerId;
                 // computerList.push(a);
 
-                if (inputValue!==0 && inputValue!==null && inputValue!=="") {
-                    // alert("该行id："+columnMemoryId+"输入框的值："+inputValue);
-                    $.ajax({
-                        url:"/changeOrderNum",
-                        data:
-                            {
-                                productId:columnMemoryId,
-                                orderNum:inputValue
-                            },
-                        // "list="+computerList,
-                        //     JSON.stringify(computerList),
-                        // dataType : "json",
-                        async : false,
-                        success:function () {
+                               // if (inputValue!==0 && inputValue!==null && inputValue!=="") {
+                // alert("该行id："+columnMemoryId+"输入框的值："+inputValue);
+                $.ajax({
+                    url: "/changeOrderNum",
+                    data:
+                        {
+                            productId: columnMemoryId,
+                            orderNum: inputValue
+                        },
+                    // "list="+computerList,
+                    //     JSON.stringify(computerList),
+                    // dataType : "json",
+                    async: false,
+                    success: function () {
 
-                        }
-                    })
-                }
+                    }
+                })
+                               // }
 
             });
 
-             window.location.href="/cart";
-        }else{
-            window.location.href="/";
+            window.location.href = "/cart";
+        } else {
+            window.location.href = "/";
         }
 
     })
-<!--**********************-->
+    <!--**********************-->
 
-  </script>
+</script>
 </body>
 </html>

@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.rmi.PortableRemoteObject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +24,17 @@ public class OrderListController {
     public String updateNum(String productId, String orderNum) {
 
         int orderNums = Integer.parseInt(orderNum);
+        int inputIsZero = orderListService.queryInputIsZero(productId);
         int stockNum = orderListService.checkStockById(productId);
-        if (orderNums < stockNum){
-             orderListService.updateNum(productId, stockNum, orderNum);
+        if (inputIsZero==0){
+
+            if (orderNums < stockNum){
+                orderListService.updateNum(productId, stockNum, orderNum);
+            }
+        }else {
+            orderListService.additionalOrder(productId,stockNum,orderNum,inputIsZero);
         }
+
 //         model.addAttribute("",)
         return "memoryOrder";
     }
@@ -43,16 +51,19 @@ public class OrderListController {
 
 //    订单页显示
     @RequestMapping("/cart")
-    public String showCartList(Model model){
-        orderListService.showCartList(model);
+    public String showCartList(HttpServletRequest request,Model model){
+        orderListService.showCartList(request);
+        List<Product> cartList = (List<Product>) request.getSession().getAttribute("cartList");
+        model.addAttribute("cartList",cartList);
         return "cart";
     }
 
 //    获取总价
     @RequestMapping("/queryTotal")
     @ResponseBody
-    public String queryTotal(){
-        return orderListService.queryTotal();
+    public String queryTotal(HttpServletRequest request){
+        orderListService.showCartList(request);
+        return (String) request.getSession().getAttribute("total");
 
     }
 

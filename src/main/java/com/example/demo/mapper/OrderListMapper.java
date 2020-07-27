@@ -15,5 +15,8 @@ public interface OrderListMapper {
     int updateNum(String productId, Integer stockNum, String orderNum);
     @Select("select store_Name,product_version,product_price,product_out from product where product_out !=0 ")
     List<Product> showCartList();
-
+    @Select("select product_out from product where id = #{productId}")
+    int queryInputIsZero(String productId);
+    @Update("update product set product_stock = #{stockNum}-#{inputIsZero},product_out = #{orderNum}+#{inputIsZero} where id = #{productId}")
+    String additionalOrder(String productId, int stockNum, String orderNum, int inputIsZero);
 }

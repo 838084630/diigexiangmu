@@ -87,19 +87,16 @@
 <!-- 跳转到第二页面-->
   $('#check').click(function(){
    var number = $('#number').val();
+
+   var trLength = $(".table1").find("tr").length;
+   if(number < trLength){
+
       window.location.href="/computerPage?number="+number;
-        // $.ajax({
-        // url:"/computerPage",
-        // data:{
-        // number:number
-        // },
-        // success: function(data){
-        //
-        //
-        //
-        // }
-        //
-        // })
+
+      }else{
+        $('#number').val('!')
+<!--        $('#number').attr('value','!')-->
+      }
 
   })
 <!--*****************-->

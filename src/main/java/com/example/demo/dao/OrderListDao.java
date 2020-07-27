@@ -24,4 +24,13 @@ public class OrderListDao {
     public List<Product> showCartList() {
         return orderListMapper.showCartList();
     }
+
+    public int queryInputIsZero(String productId) {
+         return orderListMapper.queryInputIsZero(productId);
+    }
+
+    public String additionalOrder(String productId, int stockNum, String orderNum, int inputIsZero) {
+
+        return orderListMapper.additionalOrder(productId,stockNum,orderNum,inputIsZero);
+    }
 }
